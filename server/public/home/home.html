@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../servises/api.js"></script>
+  <script src="../servises/debounce.js"></script>
+  <script defer src="../home/js/searchUsers.js"></script>
+  <script defer src="../home/js/subscribe.js"></script>
+  <script defer src="../home/js/posts.js"></script>
+  <script defer src="../home/js/home.js"></script>
+  <script defer src="../home/js/usersList.js"></script>
+  <script defer src="../home/js/postRow.js"></script>
+  <script defer src="../home/js/users.js"></script>
+  <link rel="stylesheet" href="../home/css/home.css">
+  <title>Document</title>
+</head>
+<body>
+  <section class="container">
+    <input type="text" id="search" class="search">
+    <div class="listCont" id="listCont">
+      <ul class="list" id="list">
+      </ul>
+    </div>
+    <button id="showMyPost">MyPost</button>
+    <button id="showAllPost">AllPost</button>
+    <button id="createNewPost">NewPost</button>
+    <div class="posts">
+      <div id="myPostCont">
+        <ul id="myPost"></ul>
+      </div>
+      <div id="newPost" style="display: none;">
+        <h1>New Post</h1>
+        <p>Write title</p>
+        <input type="text" name="title" id="title">
+        <p>Write post</p>
+        <textarea name="content" id="content" cols="30" rows="10"></textarea>
+        <button type="submit" id="submit">Submit</button>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

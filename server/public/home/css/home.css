@@ -1,0 +1,77 @@
+body {
+    background-color: black;
+}
+.container {
+    border-radius: 5px;
+    background-color: rgb(66, 180, 21);
+    width: 70%;
+    margin: 0 auto;
+    height: 700px;
+    padding-top: 50px;
+}
+.search {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    padding-left: 10px;
+}
+.listCont {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    position: relative;
+}
+.list {
+    margin-top: 0;
+    display: none;
+    width: 96.5%;
+    background-color: #fff;
+    position: absolute;
+}
+.list li {
+    list-style-type: none;
+    cursor: pointer;
+    margin-left: -40px;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.list li:hover {
+    background-color: rgb(170, 161, 161);
+}
+img {
+    width: 20px;
+    height: 20px;
+}
+button {
+    width: 26.5%;
+    margin-left: 5%;
+    cursor: pointer;
+    margin-top: 50px;
+}
+.posts {
+    width: 90%;
+    border-radius: 5px;
+    height: 400px;
+    margin-left: 5%;
+    margin-top: 30px;
+    background-color: #fff;
+}
+#newPost {
+    width: 400px;
+    margin-left: 10px;
+    left: 20%;
+}
+#title {
+    width: 400px;
+}
+#content {
+    width: 400px;
+}
+#submit {
+    margin-top: 20px;
+}
+#myPostCont {
+    display: none;
+}
+

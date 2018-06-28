@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-export class Api {
-  constructor() {
-
-    this.authenticate = () => {
+export function authenticate () {
       const token = localStorage.getItem('token');
       if (token) {
         this.get('/api/auth')
@@ -17,33 +14,31 @@ export class Api {
       }
     };
 
-    this.headers = (options, method) => {
+    export function headers (options, method) {
       options.headers =  options.headers || {};
       options.headers.Authorization = localStorage.getItem('token');
       options.method = method;
       return options;
     };
 
-    this.get = (url, options = {}) => {
+    export function get (url, options = {}) {
       this.headers(options, 'GET');
-      return axios(url, options);
+      return axios.get(url, options);
     };
 
+    export function post (url, options = {}) {
+      this.headers(options, 'POST');
+      return axios.post(url, options);
+    };
     
-  
-    this.delete = (url, options = {}) => {
+    export function del (url, options = {}) {
       this.headers(options, 'DELETE');
-      return axios(url, options);
+      return axios.delete(url, options);
     };
       
-    this.put = (url, options = {}) => {
+    export function put(url, options = {}) {
       this.headers(options, 'PUT');
-      return axios(url, options);
+      return axios.put(url, options);
     };
-  }
   
-}
-// Api.post = (url, options = {}) => {
-//   this.headers(options, 'POST');
-//   return axios(url, options);
-// };
+

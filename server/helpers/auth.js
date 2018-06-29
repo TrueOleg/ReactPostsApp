@@ -10,8 +10,12 @@ function verifyToken(req, res, next) {
   const token = req.headers.authorization;
   
   jwt.verify(token, secret, function(err, decoded){
-    console.log(decoded);
-    req._userId = decoded.id
+    if (decoded) {
+      req._userId = decoded.id
+    } else {
+      next(new Error('can\'t decode'))
+    }
+    
     next(err)
     
       

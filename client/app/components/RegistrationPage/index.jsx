@@ -7,14 +7,14 @@ import { formLogin } from '../style';
 import * as actions from '../../redux/actions';
 
 
-class LogInPage extends React.Component {  
+class RegistrationPage extends React.Component {  
   constructor(props) {
     super(props);
-    this.state = {credentials: {login: '', password: ''}}
+    this.state = {credentials: {regLogin: '', regPass: '', regEmail: ''}}
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
-
+  
   onChange(event) {
     const field = event.target.name;
     const credentials = this.state.credentials;
@@ -24,7 +24,7 @@ class LogInPage extends React.Component {
 
   onSave(event) {
     event.preventDefault();
-    this.props.logInUser(this.state.credentials);
+    this.props.registrationUser(this.state.credentials);
   }
 
   render() {
@@ -33,32 +33,39 @@ class LogInPage extends React.Component {
     }
     return (
         <form style = { formLogin }>
-          <h1>Login</h1>
+          <h1>Registration</h1>
           <p>Enter login</p>
           <input
-            name  = "login"
-            label = "login"
-            value={this.state.credentials.login}
+            name  = "regLogin"
+            label = "regLogin"
+            value={this.state.credentials.regLogin}
             onChange={this.onChange}
             />
           <br />
           <p>Enter password</p>
           <input
-            name  = "password"
-            label = "password"
-            type  = "password"
-            value={this.state.credentials.password}
+            name  = "regPass"
+            label = "regPass"
+            type  = "regPass"
+            value={this.state.credentials.regPass}
+            onChange={this.onChange}
+            />
+          <br />
+          <p>Enter email</p>
+          <input
+            name  = "regEmail"
+            label = "regEmail"
+            type  = "regEmail"
+            value={this.state.credentials.regEmail}
             onChange={this.onChange}
             />
           <br />
           <input
             type      = "submit"
             className = "btn btn-primary"
-            value     = "Login"
+            value     = "Registration"
             onClick={this.onSave}
             />
-          <br />
-          <Link to="/sign-up">Sign-up</Link> 
         </form>   
     );
   }
@@ -72,9 +79,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logInUser: (data) => dispatch(actions.logInUser(data))
+        registrationUser: (data) => dispatch(actions.registrationUser(data))
     };
   };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogInPage);
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);

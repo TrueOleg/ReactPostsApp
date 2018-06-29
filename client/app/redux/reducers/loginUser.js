@@ -15,6 +15,7 @@ export default (state = initialState, action) => {
             return action.hasErrored;
 
         case Const.IS_LOGIN:
+            Token.setToken(data.token);
             return { ...state, user: { ...state.user, isAuthenticated: true }};
             
         

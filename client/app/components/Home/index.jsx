@@ -2,9 +2,11 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';  
 
+import PostsCont from '../PostsCont';
+
 class Home extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
     
     render () {
@@ -12,7 +14,17 @@ class Home extends React.Component {
             return <Redirect to="/sign-in"/>;
         }
         return (
-            <div>Home</div>
+            <div>
+                <h1>Home</h1>
+                <input
+                  type = "text"
+                  />
+                <br />
+                <button>MyPosts</button>
+                <button>AllPosts</button>
+                <button>NewPost</button>
+                <PostsCont />  
+            </div>
         );
     }
 }

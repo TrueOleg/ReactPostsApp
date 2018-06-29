@@ -45,11 +45,13 @@ router.post('/api/singup', async (req, res, next) => {
             result: false
         })
     } else {
-        sequelize.query(`INSERT INTO users (name, email, password) VALUES (:login, :email, :pass)`,
+        const user = await sequelize.query(`INSERT INTO users (name, email, password) VALUES (:login, :email, :pass)`,
         {replacements: {login: `${regLogin}`, email: `${regEmail}`, pass: `${regPass}`}, type: sequelize.QueryTypes.INSERT});
+        const token = jwt.signToken(user[0].id);
         await res.status(200).send({
             message: 'success',
             result: true,
+            token
         });
     }
     } 

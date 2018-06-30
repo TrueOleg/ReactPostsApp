@@ -40,3 +40,15 @@ export const registrationUser = (data) => {
             .catch(() => dispatch(loginHasErrored(true)));
     };
 };
+
+export const getMyPosts = (id) => {
+    return (dispatch) => {
+        // const URL = Const.URL_MY_POSTS;
+        Api.get(`http://localhost:3000/api/posts?id=${id}`)
+            .then(res => {
+                console.log('res', res);
+                
+            })
+            .catch(() => dispatch(loginHasErrored(true)));
+    };
+};

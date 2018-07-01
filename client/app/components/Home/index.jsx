@@ -9,7 +9,7 @@ import {
 
 
 import MyPosts from '../MyPosts';
-import AllPosts from '../AllPosts';
+import FriendsPosts from '../FriendsPosts';
 import NewPost from '../NewPost';
 
 class Home extends React.Component {
@@ -31,14 +31,14 @@ class Home extends React.Component {
                     <br />
                     <ul>
                         <li><Link to="/my-posts">MyPosts</Link></li>
-                        <li><Link to="/all-posts">AllPosts</Link></li>
+                        <li><Link to="/friend-posts">FriendsPosts</Link></li>
                         <li><Link to="/new-post">NewPost</Link></li>
                     </ul>
 
                     <hr/>
 
                     <Route path="/my-posts" component={MyPosts}/>
-                    <Route path="/all-posts" component={AllPosts}/>
+                    <Route path="/friend-posts" component={FriendsPosts}/>
                     <Route path="/new-post" component={NewPost}/>
                 </div>
             </Router>    

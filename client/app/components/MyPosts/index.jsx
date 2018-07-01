@@ -2,9 +2,16 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';  
 
+import * as actions from '../../redux/actions';
+
+
 class MyPosts extends React.Component {
     constructor(props) {
         super(props)
+    }
+
+    componentDidMount() {
+        this.props.getMyPosts()
     }
     
     render () {
@@ -23,7 +30,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        
+        getMyPosts: () => dispatch(actions.getMyPosts())
     };
 };
 

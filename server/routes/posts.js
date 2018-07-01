@@ -23,7 +23,7 @@ router.post('/', verify, async (req, res, next) => {
     }    
 }); 
 
-router.get('/', verify, async (req, res, next) => {
+router.get('/friends', verify, async (req, res, next) => {
     try {        
         const userId = req._userId;
         const posts = await sequelize.query('SELECT title, content, name, date FROM posts INNER JOIN users ON posts.user_id=users.id WHERE user_id IN (SELECT following FROM followers WHERE follower=?)', {replacements: [`${userId}`], type: sequelize.QueryTypes.SELECT})
@@ -38,7 +38,7 @@ router.get('/', verify, async (req, res, next) => {
     }      
 }); 
 
-router.get('/:id', verify, async (req, res, next) => {
+router.get('/my', verify, async (req, res, next) => {
     try {        
         const userId = req._userId;
         const posts = await sequelize.query('SELECT title, content, date FROM posts  WHERE user_id=?', {replacements: [`${userId}`], type: sequelize.QueryTypes.SELECT})

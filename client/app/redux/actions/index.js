@@ -19,10 +19,10 @@ export const isLogin = (data) => {
 
 export const logInUser = (data) => {
     return (dispatch) => {
-        const URL = Const.URL_LOGIN;
-        Api.post(`${URL}`, data)
+        
+        Api.post(`${Const.URL}/singin`, data)
             .then(res => {
-                console.log('res', res);
+               
                 dispatch(isLogin(res.data));
             })
             .catch(() => dispatch(loginHasErrored(true)));
@@ -31,8 +31,8 @@ export const logInUser = (data) => {
 
 export const registrationUser = (data) => {
     return (dispatch) => {
-        const URL = Const.URL_REGISTRATION;
-        Api.post(`${URL}`, data)
+
+        Api.post(`${Const.URL}/singup`, data)
             .then(res => {
                 console.log('res', res);
                 dispatch(isLogin(res.data));
@@ -41,13 +41,39 @@ export const registrationUser = (data) => {
     };
 };
 
-export const getMyPosts = (id) => {
+export const saveMyPosts = (posts) => {
+    return {
+        type: Const.SAVE_MY_POSTS,
+        posts
+    };
+};  
+
+export const getMyPosts = () => {
     return (dispatch) => {
-        // const URL = Const.URL_MY_POSTS;
-        Api.get(`http://localhost:3000/api/posts?id=${id}`)
+        
+        Api.get(`${Const.URL}/posts/my`)
+            .then(res => {
+                
+                dispatch(saveMyPosts(res.data.posts));
+            })
+            .catch(() => dispatch(loginHasErrored(true)));
+    };
+};
+
+export const saveFriendsPosts = (posts) => {
+    return {
+        type: Const.SAVE_FRIENDS_POSTS,
+        posts
+    };
+};  
+
+export const getFriendsPosts = () => {
+    return (dispatch) => {
+        
+        Api.get(`${Const.URL}/posts/friends`)
             .then(res => {
                 console.log('res', res);
-                
+                dispatch(saveFriendsPosts(res.data.posts));
             })
             .catch(() => dispatch(loginHasErrored(true)));
     };

@@ -3,7 +3,7 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';  
 
 import * as actions from '../../redux/actions';
-
+import ListPosts from '../ListPosts';
 
 class FriendsPosts extends React.Component {
     constructor(props) {
@@ -15,16 +15,29 @@ class FriendsPosts extends React.Component {
     }
 
     render () {
-        return (
-            <div>FriendsPosts</div>
-        );
+        if (this.props.friendsPosts.length === 0) {
+            return (
+                    <div>
+                        <h1>FriendsPosts</h1>
+                    </div>
+                    );
+        } else {
+            return (
+                <React.Fragment>
+                <h1>FriendsPosts</h1>
+                <ListPosts myPosts={this.props.friendsPosts}/>
+                </React.Fragment>
+            )
+        }
     }
 }
 
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.auth.user.isAuthenticated
+        isAuthenticated: state.auth.user.isAuthenticated,
+        friendsPosts: state.posts.friendsPosts
+
     };
   };
 

@@ -78,3 +78,15 @@ export const getFriendsPosts = () => {
             .catch(() => dispatch(loginHasErrored(true)));
     };
 };
+
+export const writePost = (data) => {
+    return (dispatch) => {
+
+        Api.post(`${Const.URL}/posts/`, data)
+            .then(res => {
+                console.log('res', res);
+                dispatch(isLogin(res.data));
+            })
+            .catch(() => dispatch(loginHasErrored(true)));
+    };
+};

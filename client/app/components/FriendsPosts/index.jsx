@@ -25,7 +25,7 @@ class FriendsPosts extends React.Component {
             return (
                 <React.Fragment>
                 <h1>FriendsPosts</h1>
-                <ListPosts myPosts={this.props.friendsPosts}/>
+                <ListPosts posts={this.props.friendsPosts}/>
                 </React.Fragment>
             )
         }

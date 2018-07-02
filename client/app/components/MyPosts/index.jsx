@@ -28,7 +28,7 @@ class MyPosts extends React.Component {
             return (
                 <React.Fragment>
                 <h1>MyPosts</h1>
-                <ListPosts myPosts={this.props.myPosts}/>
+                <ListPosts posts={this.props.myPosts}/>
                 </React.Fragment>
             )
         }

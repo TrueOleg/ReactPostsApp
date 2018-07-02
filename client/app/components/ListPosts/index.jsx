@@ -15,8 +15,8 @@ class ListPosts extends React.Component {
    
     
     render () {
-        const { Posts } = this.props;
-            const comp = Posts.map((item) => {return (<li key={item.title}><Post  post={item} /></li>)});
+        const { posts } = this.props;
+            const comp = posts.map((item) => {return (<li key={item.title}><Post  post={item} /></li>)});
             return (
                 <div>
                     <ul>{comp}</ul>

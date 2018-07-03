@@ -1,13 +1,14 @@
 import React from 'react';   
-import { Redirect } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import {
     BrowserRouter as Router,
     Route,
     Link
-  } from 'react-router-dom'  
+  } from 'react-router-dom';  
 
 
+import * as actions from '../../redux/actions';  
 import MyPosts from '../MyPosts';
 import FriendsPosts from '../FriendsPosts';
 import NewPost from '../NewPost';
@@ -15,14 +16,21 @@ import NewPost from '../NewPost';
 class Home extends React.Component {
     constructor(props) {
         super(props);
+        const token = localStorage.getItem('token');
+        if (token) {
+            props.setToken({
+                token
+            });
+        }
     }
     
     render () {
-        if (!this.props.isAuthenticated) {
+        const token = localStorage.getItem('token');
+
+        if (!this.props.isAuthenticated && !token) {
             return <Redirect to="/sign-in"/>;
         }
         return (
-            <Router>
                 <div>
                     <h1>Home</h1>
                     <input
@@ -37,11 +45,10 @@ class Home extends React.Component {
 
                     <hr/>
 
-                    <Route path="/my-posts" component={MyPosts}/>
+                    <Route path="/my-posts" render={ props => <MyPosts {...props}/>}/>
                     <Route path="/friend-posts" component={FriendsPosts}/>
                     <Route path="/new-post" component={NewPost}/>
-                </div>
-            </Router>    
+                </div> 
         );
     }
 }
@@ -53,10 +60,8 @@ const mapStateToProps = (state) => {
     };
   };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        
-    };
-};
+const mapDispatchToProps = (dispatch) => ({
+    setToken: (data) => dispatch(actions.isLogin(data))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

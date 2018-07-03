@@ -26,9 +26,9 @@ export function authenticate () {
       return axios.get(url, options);
     };
 
-    export function post (url, options = {}) {
+    export function post (url, data, options = {}) {
       this.headers(options, 'POST');
-      return axios.post(url, options);
+      return axios.post(url, data, options);
     };
     
     export function del (url, options = {}) {

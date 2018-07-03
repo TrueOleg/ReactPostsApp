@@ -29,6 +29,7 @@ class LogInPage extends React.Component {
 
   render() {
     if (this.props.isAuthenticated) {
+      console.log('WTF!!')
       return <Redirect to="/"/>;
     }
     return (

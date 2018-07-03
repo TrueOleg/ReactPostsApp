@@ -2,6 +2,9 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';  
 
+import * as actions from '../../redux/actions';
+
+
 class NewPost extends React.Component {
     constructor(props) {
         super(props)
@@ -48,8 +51,6 @@ class NewPost extends React.Component {
               value     = "Write"
               onClick={this.onSave}
               />
-            <br />
-            <Link to="/sign-up">Sign-up</Link> 
           </form>  
         );
     }

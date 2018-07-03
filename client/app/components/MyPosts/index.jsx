@@ -1,5 +1,5 @@
 import React from 'react';   
-import { Redirect } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
 import { connect } from 'react-redux';  
 
 import * as actions from '../../redux/actions';
@@ -7,14 +7,10 @@ import ListPosts from '../ListPosts';
 
 
 class MyPosts extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     componentDidMount() {
-        this.props.getMyPosts()
+        this.props.getMyPosts();
     }
-
     
     render () {
         
@@ -51,4 +47,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyPosts));

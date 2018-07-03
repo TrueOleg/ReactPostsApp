@@ -14,9 +14,9 @@ const Root = () => {
     <Provider store={store}>
       <Router history={browserHistory}>
         <Switch>
-        <Route path="/" component={Home} exact />
-        <Route path="/sign-in" component={LogInPage} />
-        <Route path="/sign-up" component={RegistrationPage} />
+          <Route path="/sign-in" component={LogInPage} />
+          <Route path="/sign-up" component={RegistrationPage} />
+          <Route path="/" render={ props => <Home {...props} />}/>
         </Switch>
       </Router>
     </Provider>  

@@ -42,6 +42,7 @@ router.get('/my', verify, async (req, res, next) => {
     try {        
         const userId = req._userId;
         const posts = await sequelize.query('SELECT title, content, date FROM posts  WHERE user_id=?', {replacements: [`${userId}`], type: sequelize.QueryTypes.SELECT})
+        req.method="NONE"; 
         res.status(200).send({
             message: 'success',
             result: true,

@@ -13,7 +13,9 @@ function verifyToken(req, res, next) {
     if (decoded) {
       req._userId = decoded.id
     } else {
-      next(new Error('can\'t decode'))
+      const err = new Error('can\'t decode');
+      err.status = 401;
+      next(err);
     }
     
     next(err)

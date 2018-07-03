@@ -11,13 +11,15 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 
+app.set('etag', false);
+app.disable('etag')
+
 app.use('/', router)
 
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    console.log('middlewse', err);
-    res.send(err);
-  });
+  res.status(err.status || 500);
+  res.send(err.message);
+});
 
 
 

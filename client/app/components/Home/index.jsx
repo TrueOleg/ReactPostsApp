@@ -8,7 +8,8 @@ import {
   } from 'react-router-dom';  
 
 
-import * as actions from '../../redux/actions/authAction';  
+import * as actions from '../../redux/actions/authAction'; 
+import * as debounceActions from '../../redux/actions/searchUsers';  
 import MyPosts from '../MyPosts';
 import FriendsPosts from '../FriendsPosts';
 import NewPost from '../NewPost';
@@ -16,13 +17,23 @@ import NewPost from '../NewPost';
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        const token = localStorage.getItem('token');
-        if (token) {
-            props.setToken({
-                token
-            });
-        }
+        this.state    = {credentials: {name: ''}};
+        this.onChange = this.onChange.bind(this);
+        const token   = localStorage.getItem('token');
+            if (token) {
+                props.setToken({
+                    token
+                });
+            }
     }
+
+    onChange(event) {
+        const field = event.target.name;
+        const credentials = this.state.credentials;
+        credentials[field] = event.target.value;
+        this.setState({credentials: credentials});
+        return this.props.searchUsersDebounced(this.state.credentials.name);
+      }
     
     render () {
         const token = localStorage.getItem('token');
@@ -35,6 +46,9 @@ class Home extends React.Component {
                     <h1>Home</h1>
                     <input
                     type = "text"
+                    name = "name" 
+                    value={this.state.credentials.name}
+                    onChange = {this.onChange}
                     />
                     <br />
                     <ul>
@@ -61,7 +75,8 @@ const mapStateToProps = (state) => {
   };
 
 const mapDispatchToProps = (dispatch) => ({
-    setToken: (data) => dispatch(actions.isLogin(data))
+    setToken: (data) => dispatch(actions.isLogin(data)),
+    searchUsersDebounced: (data) => dispatch(debounceActions.searchUsersDebounced(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

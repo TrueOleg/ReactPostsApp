@@ -1,13 +1,8 @@
 import * as Const from '../constants';
 
-
-
-
-
-
 const initialState = { myPosts: [],
                        friendsPosts: [] 
-                            };
+                     };
 
 export default (state = initialState, action) => {
     const { type, posts } = action;

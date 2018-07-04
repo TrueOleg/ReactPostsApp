@@ -10,6 +10,7 @@ import {
 
 import * as actions from '../../redux/actions/authAction'; 
 import * as debounceActions from '../../redux/actions/searchUsers';  
+import FoundUsers from '../FoundUsers';
 import MyPosts from '../MyPosts';
 import FriendsPosts from '../FriendsPosts';
 import NewPost from '../NewPost';
@@ -41,6 +42,7 @@ class Home extends React.Component {
         if (!this.props.isAuthenticated && !token) {
             return <Redirect to="/sign-in"/>;
         }
+        
         return (
                 <div>
                     <h1>Home</h1>
@@ -50,6 +52,8 @@ class Home extends React.Component {
                     value={this.state.credentials.name}
                     onChange = {this.onChange}
                     />
+                    <br />
+                    <FoundUsers />
                     <br />
                     <ul>
                         <li><Link to="/my-posts">MyPosts</Link></li>
@@ -70,7 +74,8 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.auth.user.isAuthenticated
+        isAuthenticated: state.auth.user.isAuthenticated,
+        foundUsers: state.users.data
     };
   };
 

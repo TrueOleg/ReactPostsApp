@@ -10,15 +10,23 @@ export const errored = (data) => {
     };
 };  
 
+export const saveUsers = (data) => {
+    return {
+        type: Const.SAVE_USERS,
+        data
+    };
+}; 
+
 export const searchUsers = (data) => {
     return (dispatch) => {
-
-        Api.get(`${Const.URL}/users?char=${data}`)
-            .then(res => {
-                console.log('res', res);
-                
-            })
-            .catch(() => dispatch(errored(true)));
+        if (data !== '') {
+            Api.get(`${Const.URL}/users?char=${data}`)
+                .then(res => {
+                    console.log('res', res.data.users);
+                    dispatch(saveUsers(res.data.users));
+                })
+                .catch(() => dispatch(errored(true)));
+        }
     };
 };
 

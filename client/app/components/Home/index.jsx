@@ -9,7 +9,7 @@ import {
 
 
 import * as actions from '../../redux/actions/authAction'; 
-import * as debounceActions from '../../redux/actions/searchUsers';  
+import * as usersActions from '../../redux/actions/searchUsers';  
 import FoundUsers from '../FoundUsers';
 import MyPosts from '../MyPosts';
 import FriendsPosts from '../FriendsPosts';
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     setToken: (data) => dispatch(actions.isLogin(data)),
-    searchUsersDebounced: (data) => dispatch(debounceActions.searchUsersDebounced(data))
+    searchUsersDebounced: (data) => dispatch(usersActions.searchUsersDebounced(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

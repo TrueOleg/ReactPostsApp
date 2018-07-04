@@ -4,5 +4,6 @@ export const
     SAVE_MY_POSTS = 'SAVE_MY_POSTS',
     SAVE_FRIENDS_POSTS = 'SAVE_FRIENDS_POSTS',
     SAVE_USERS = 'SAVE_USERS',
+    CLEAR_USERS = 'CLEAR_USERS',
     URL = 'http://localhost:3000/api';
     

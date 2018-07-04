@@ -8,8 +8,8 @@ const verify = auth.verifyToken;
 
 router.post('/', verify, async (req, res, next) => {
     try {
-        const data = req.body;
-        const followingId = data.following;
+        // const data = req.body;
+        const followingId = req.query.id;
         const userId = req._userId;
         await sequelize.query(`INSERT INTO followers (follower, following) VALUES (:follower, :following)`,
         {replacements: {follower: `${userId}`, following: `${followingId}`}, type: sequelize.QueryTypes.INSERT})
@@ -25,8 +25,8 @@ router.post('/', verify, async (req, res, next) => {
 
 router.delete('/', verify, async (req, res, next) => {
     try {
-        const data = req.body;
-        const followingId = data.following;
+        // const data = req.body;
+        const followingId = req.query.id;
         const userId = req._userId;
         await sequelize.query(`DELETE FROM followers WHERE following=:following AND follower=:follower`, 
         {replacements: {following: `${followingId}`, follower: `${userId}`}, type: sequelize.QueryTypes.DELETE})

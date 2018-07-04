@@ -17,9 +17,17 @@ export const saveUsers = (data) => {
     };
 }; 
 
+export const clearUsers = () => {
+    return {
+        type: Const.CLEAR_USERS,
+    };
+}; 
+
 export const searchUsers = (data) => {
     return (dispatch) => {
-        if (data !== '') {
+        if (data === '') {
+            dispatch(clearUsers());
+        } else {
             Api.get(`${Const.URL}/users?char=${data}`)
                 .then(res => {
                     console.log('res', res.data.users);
@@ -31,3 +39,29 @@ export const searchUsers = (data) => {
 };
 
 export const searchUsersDebounced = debounceAction(searchUsers, 1000);
+
+export const subscribe = (id) => {
+    return (dispatch) => {
+        
+            Api.post(`${Const.URL}/followers?id=${id}`)
+                .then(res => {
+                    console.log('res', res.data.users);
+                    
+                })
+                .catch(() => dispatch(errored(true)));
+        
+    };
+};
+
+export const unsubscribe = (id) => {
+    return (dispatch) => {
+        
+            Api.del(`${Const.URL}/followers?id=${id}`)
+                .then(res => {
+                    console.log('res', res.data.users);
+                    
+                })
+                .catch(() => dispatch(errored(true)));
+        
+    };
+};

@@ -4,7 +4,7 @@ import { Redirect} from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { formLogin } from '../style';
-import * as actions from '../../redux/actions';
+import * as actions from '../../redux/actions/authAction';
 
 
 class RegistrationPage extends React.Component {  

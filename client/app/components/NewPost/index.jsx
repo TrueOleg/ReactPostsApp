@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';  
 
-import * as actions from '../../redux/actions';
+import * as actions from '../../redux/actions/postsAction';
 
 
 class NewPost extends React.Component {
@@ -23,6 +23,7 @@ class NewPost extends React.Component {
       onSave(event) {
         event.preventDefault();
         this.props.writePost(this.state.credentials);
+        this.setState({ credentials: {title: '', content: ''}})
       }
     
     render () {

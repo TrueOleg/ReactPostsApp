@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, withRouter } from 'react-router';
 import { connect } from 'react-redux';  
 
-import * as actions from '../../redux/actions';
+import * as actions from '../../redux/actions/postsAction';
 import ListPosts from '../ListPosts';
 
 

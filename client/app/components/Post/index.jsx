@@ -1,13 +1,9 @@
 import React from 'react';   
-import { Redirect } from 'react-router';
 import { connect } from 'react-redux';  
-
-import * as actions from '../../redux/actions';
-
 
 class Post extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     componentDidMount() {

@@ -8,7 +8,7 @@ import {
   } from 'react-router-dom';  
 
 
-import * as actions from '../../redux/actions';  
+import * as actions from '../../redux/actions/authAction';  
 import MyPosts from '../MyPosts';
 import FriendsPosts from '../FriendsPosts';
 import NewPost from '../NewPost';

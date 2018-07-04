@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';  
 
-import * as actions from '../../redux/actions';
+import * as actions from '../../redux/actions/postsAction';
 import ListPosts from '../ListPosts';
 
 class FriendsPosts extends React.Component {

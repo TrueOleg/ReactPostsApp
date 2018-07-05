@@ -18,6 +18,7 @@ class Post extends React.Component {
             <ul>
                 <li>{post.title}</li>
                 <li>{post.content}</li>
+                <li>{post.name}</li>
                 <li>{post.date}</li>
             </ul>
         );

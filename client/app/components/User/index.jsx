@@ -1,8 +1,10 @@
 import React from 'react';  
 import { connect } from 'react-redux';  
 
+
 import * as usersActions from '../../redux/actions/searchUsers';  
-import star from '../../img/icons8-звезда-50.png';
+import starOne from '../../img/star (1).png';
+import starTwo from '../../img/star (2).png';
 
 
 class User extends React.Component {
@@ -12,14 +14,17 @@ class User extends React.Component {
 
     click = () => {
         this.props.user.followerid 
-        ? this.props.unsubscribe(this.props.user.id)
-        : this.props.subscribe(this.props.user.id);
+        ? this.props.unsubscribe(this.props.user.id, this.props.char)
+        : this.props.subscribe(this.props.user.id, this.props.char);
     }
     
+    
+    
+
     render () {
-        
+        const image = this.props.user.followerid ? starTwo: starOne;
         return (
-            <p onClick={this.click}>{this.props.user.name}<img onClick={this.click} src={star}/></p>
+            <p onClick={this.click}>{this.props.user.name}<img onClick={this.click} src={image}/></p>
         );
     }
 }
@@ -27,14 +32,14 @@ class User extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-      
+      char: state.users.data
     };
   };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        subscribe: (id) => dispatch(usersActions.subscribe(id)),
-        unsubscribe: (id) => dispatch(usersActions.unsubscribe(id))
+        subscribe: (id, char) => dispatch(usersActions.subscribe(id, char)),
+        unsubscribe: (id, char) => dispatch(usersActions.unsubscribe(id, char))
     };
 };
 

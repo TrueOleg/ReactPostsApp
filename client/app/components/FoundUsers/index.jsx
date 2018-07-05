@@ -26,7 +26,7 @@ class FoundUsers extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        foundUsers: state.users.data
+        foundUsers: state.users.users
     };
   };
 

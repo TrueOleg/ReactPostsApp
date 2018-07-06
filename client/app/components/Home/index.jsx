@@ -18,8 +18,13 @@ import NewPost from '../NewPost';
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        this.state    = {credentials: {name: ''}};
+        this.list = null;
+        this.state = {
+            credentials: {name: ''},
+            isOpen: false
+        };
         this.onChange = this.onChange.bind(this);
+        this.onFocus = this.onFocus.bind(this);
         const token   = localStorage.getItem('token');
             if (token) {
                 props.setToken({
@@ -28,13 +33,42 @@ class Home extends React.Component {
             }
     }
 
+    componentDidMount() {
+        document.addEventListener('click', (e) => {this.hideList(e)});
+        this.list = document.getElementById('list');
+        
+    }
+
+    hideList(e) {
+        
+        const list = this.list;
+        if (list && !list.contains(e.target)) {
+            this.setState({
+              isOpen: false
+            })
+          }
+    }
+
+    logOut() {
+        localStorage.removeItem('token');
+        location.reload();
+    }
+
+    onFocus() {
+        this.setState({
+            isOpen: true
+        });
+    }
+
     onChange(event) {
         const field = event.target.name;
         const credentials = this.state.credentials;
         credentials[field] = event.target.value;
-        this.setState({credentials: credentials});
+        this.setState({
+            credentials: credentials,
+        });
         return this.props.searchUsersDebounced(this.state.credentials.name);
-      }
+    }
     
     render () {
         const token = localStorage.getItem('token');
@@ -42,18 +76,25 @@ class Home extends React.Component {
         if (!this.props.isAuthenticated && !token) {
             return <Redirect to="/sign-in"/>;
         }
+
+        const list = this.state.isOpen ? <FoundUsers /> : null;
         
         return (
                 <div>
                     <h1>Home</h1>
-                    <input
-                    type = "text"
-                    name = "name" 
-                    value={this.state.credentials.name}
-                    onChange = {this.onChange}
-                    />
-                    <br />
-                    <FoundUsers />
+                    <button onClick={this.logOut}>Log-out</button>
+                    <div id="list">
+                        <input
+                            type = "text"
+                            name = "name" 
+                            value={this.state.credentials.name}
+                            onChange = {this.onChange}
+                            onBlur = {this.onBlur}
+                            onFocus = {this.onFocus}
+                        />
+                        
+                        {list}
+                    </div>
                     <br />
                     <ul>
                         <li><Link to="/my-posts">MyPosts</Link></li>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect} from 'react-router'; 
 import { Link } from 'react-router-dom';
 
-import { formLogin } from '../style';
+
 import * as actions from '../../redux/actions/authAction';
 
 

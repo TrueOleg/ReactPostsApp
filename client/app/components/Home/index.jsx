@@ -7,7 +7,7 @@ import {
     Link
   } from 'react-router-dom';  
 
-
+import * as Token from '../../servises/Token';
 import * as actions from '../../redux/actions/authAction'; 
 import * as usersActions from '../../redux/actions/searchUsers';  
 import FoundUsers from '../FoundUsers';
@@ -40,7 +40,6 @@ class Home extends React.Component {
     }
 
     hideList(e) {
-        
         const list = this.list;
         if (list && !list.contains(e.target)) {
             this.setState({
@@ -50,7 +49,8 @@ class Home extends React.Component {
     }
 
     logOut() {
-        localStorage.removeItem('token');
+        Token.clearToken();
+        // localStorage.removeItem('token');
         location.reload();
     }
 

@@ -1,10 +1,6 @@
 import * as Const from '../constants';
 import * as Token from '../../servises/Token';
 
-import {browserHistory} from 'react-router';
-
-
-
 const initialState = { user: { isAuthenticated: false } };
 
 export default (state = initialState, action) => {

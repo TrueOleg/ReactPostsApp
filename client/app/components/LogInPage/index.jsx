@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect} from 'react-router'; 
 import { Link } from 'react-router-dom';
 
-import { formLogin } from '../style';
+import * as styles from '../style/LoginPage';
 import * as actions from '../../redux/actions/authAction';
 
 
@@ -28,37 +28,41 @@ class LogInPage extends React.Component {
   }
 
   render() {
+    console.log('login', styles)
     if (this.props.isAuthenticated) {
       console.log('WTF!!')
       return <Redirect to="/"/>;
     }
     return (
-        <form style = { formLogin }>
+        <form style={styles.formLogin}>
           <h1>Login</h1>
           <p>Enter login</p>
           <input
+            style={styles.input}
             name  = "login"
             label = "login"
             value={this.state.credentials.login}
             onChange={this.onChange}
             />
-          <br />
+          
           <p>Enter password</p>
           <input
+            style={styles.input}
             name  = "password"
             label = "password"
             type  = "password"
             value={this.state.credentials.password}
             onChange={this.onChange}
             />
-          <br />
+          
           <input
+            style={styles.btnLogin}
             type      = "submit"
             className = "btn btn-primary"
             value     = "Login"
             onClick={this.onSave}
             />
-          <br />
+          
           <Link to="/sign-up">Sign-up</Link> 
         </form>   
     );

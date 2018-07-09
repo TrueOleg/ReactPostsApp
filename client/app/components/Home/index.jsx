@@ -50,7 +50,6 @@ class Home extends React.Component {
 
     logOut() {
         Token.clearToken();
-        // localStorage.removeItem('token');
         location.reload();
     }
 

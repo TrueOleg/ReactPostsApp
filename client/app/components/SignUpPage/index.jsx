@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { Redirect} from 'react-router'; 
 import { Link } from 'react-router-dom';
 
-import * as styles from '../style/LoginPage';
+import * as styles from '../style/SignUpPage';
 import * as actions from '../../redux/actions/authAction';
 
 
-class LogInPage extends React.Component {  
+class SignUpPage extends React.Component {  
   constructor(props) {
     super(props);
-    this.state = {credentials: {login: '', password: ''}}
+    this.state = {credentials: {regLogin: '', regPass: '', regEmail: ''}}
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
-
+  
   onChange(event) {
     const field = event.target.name;
     const credentials = this.state.credentials;
@@ -24,46 +24,49 @@ class LogInPage extends React.Component {
 
   onSave(event) {
     event.preventDefault();
-    this.props.logInUser(this.state.credentials);
+    this.props.registrationUser(this.state.credentials);
   }
 
   render() {
-    console.log('login', styles)
     if (this.props.isAuthenticated) {
-      console.log('WTF!!')
       return <Redirect to="/"/>;
     }
     return (
-        <form style={styles.formLogin}>
-          <h1>Login</h1>
+        <form style = {styles.form}>
+          <h1>Sign-up</h1>
           <p>Enter login</p>
           <input
-            style={styles.input}
-            name  = "login"
-            label = "login"
-            value={this.state.credentials.login}
+            name  = "regLogin"
+            label = "regLogin"
+            value={this.state.credentials.regLogin}
             onChange={this.onChange}
             />
-          
+          <br />
           <p>Enter password</p>
           <input
-            style={styles.input}
-            name  = "password"
-            label = "password"
-            type  = "password"
-            value={this.state.credentials.password}
+            name  = "regPass"
+            label = "regPass"
+            type  = "regPass"
+            value={this.state.credentials.regPass}
             onChange={this.onChange}
             />
-          
+          <br />
+          <p>Enter email</p>
           <input
-            style={styles.btnLogin}
+            name  = "regEmail"
+            label = "regEmail"
+            type  = "regEmail"
+            value={this.state.credentials.regEmail}
+            onChange={this.onChange}
+            />
+          <br />
+          <input
+            style     = {styles.btn}
             type      = "submit"
             className = "btn btn-primary"
-            value     = "Login"
+            value     = "Registration"
             onClick={this.onSave}
             />
-          
-          <Link to="/sign-up">Sign-up</Link> 
         </form>   
     );
   }
@@ -77,9 +80,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logInUser: (data) => dispatch(actions.logInUser(data))
+        registrationUser: (data) => dispatch(actions.registrationUser(data))
     };
   };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogInPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

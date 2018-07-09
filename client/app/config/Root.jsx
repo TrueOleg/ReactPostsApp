@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, browserHistory, IndexRoute, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from '../components/App';
-import RegistrationPage from '../components/RegistrationPage';
-import LogInPage from '../components/LogInPage';
+import SignUpPage from '../components/SignUpPage';
+import SignInPage from '../components/SignInPage';
 import Home from '../components/Home';
 
 import store from './store';
@@ -14,8 +14,8 @@ const Root = () => {
     <Provider store={store}>
       <Router history={browserHistory}>
         <Switch>
-          <Route path="/sign-in" component={LogInPage} />
-          <Route path="/sign-up" component={RegistrationPage} />
+          <Route path="/sign-in" component={SignInPage} />
+          <Route path="/sign-up" component={SignUpPage} />
           <Route path="/" render={ props => <Home {...props} />}/>
         </Switch>
       </Router>

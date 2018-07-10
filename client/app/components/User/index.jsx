@@ -8,9 +8,6 @@ import starTwo from '../../img/star (2).png';
 
 
 class User extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     click = () => {
         this.props.user.followerid 

@@ -6,9 +6,6 @@ import * as actions from '../../redux/actions/postsAction';
 import ListPosts from '../ListPosts';
 
 class FriendsPosts extends React.Component {
-    constructor(props) {
-        super(props)
-    }
     
     componentDidMount() {
         this.props.getFriendsPosts()
@@ -18,14 +15,14 @@ class FriendsPosts extends React.Component {
         if (this.props.friendsPosts.length === 0) {
             return (
                     <div>
-                        <h1>FriendsPosts</h1>
+                        <h1>There is no posts. Please subscribe for someone.</h1>
                     </div>
                     );
         } else {
             return (
                 <React.Fragment>
-                <h1>FriendsPosts</h1>
-                <ListPosts posts={this.props.friendsPosts}/>
+                    <h1>FriendsPosts</h1>
+                    <ListPosts posts={this.props.friendsPosts}/>
                 </React.Fragment>
             )
         }

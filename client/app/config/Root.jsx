@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, browserHistory, IndexRoute, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import App from '../components/App';
+
 import SignUpPage from '../components/SignUpPage';
 import SignInPage from '../components/SignInPage';
 import Home from '../components/Home';

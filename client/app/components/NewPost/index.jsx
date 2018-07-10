@@ -32,24 +32,24 @@ class NewPost extends React.Component {
             <h1>New Post</h1>
             <p>Enter title</p>
             <input
-              name  = "title"
-              label = "title"
+              name="title"
+              label="title"
               value={this.state.credentials.title}
               onChange={this.onChange}
               />
             <br />
             <p>Enter content</p>
             <textarea
-              name  = "content"
-              label = "content"
+              name="content"
+              label="content"
               value={this.state.credentials.content}
               onChange={this.onChange}
               />
             <br />
             <input
-              type      = "submit"
-              className = "btn btn-primary"
-              value     = "Write"
+              type="submit"
+              className="btn btn-primary"
+              value="Write"
               onClick={this.onSave}
               />
           </form>  

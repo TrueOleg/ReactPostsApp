@@ -7,10 +7,7 @@ import AllPosts from '../AllPosts';
 import NewPost from '../NewPost';
 
 class PostsCont extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    
+
     render () {
         return (
             <div>
@@ -29,10 +26,4 @@ const mapStateToProps = (state) => {
     };
   };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostsCont);
+export default connect(mapStateToProps, null)(PostsCont);

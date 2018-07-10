@@ -1,9 +1,10 @@
 const express = require('express');
-const router = express.Router();
-const sequelize = require('../models/sequelize');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+
+const sequelize = require('../models/sequelize');
 const auth = require('../helpers/auth');
+const router = express.Router();
 const verify = auth.verifyToken;
 
 router.post('/', verify, async (req, res, next) => {
@@ -19,6 +20,8 @@ router.post('/', verify, async (req, res, next) => {
         });
     } 
     catch(err) {
+        // const error = new Error(err.message);
+        // error.status = 400;
         next(new Error(err.message));
     }    
 }); 

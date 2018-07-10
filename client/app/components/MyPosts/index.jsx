@@ -34,17 +34,13 @@ class MyPosts extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        isAuthenticated: state.auth.user.isAuthenticated,
-        myPosts: state.posts.myPosts
-    };
-  };
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.user.isAuthenticated,
+    myPosts: state.posts.myPosts
+});
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getMyPosts: () => dispatch(actions.getMyPosts())
-    };
-};
+const mapDispatchToProps = (dispatch) => ({
+    getMyPosts: () => dispatch(actions.getMyPosts())
+});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyPosts));

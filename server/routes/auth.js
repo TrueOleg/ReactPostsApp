@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('../helpers/auth')
-const { sequelize, Users } = require('../models/sequelize');
+const { sequelize } = require('../models/sequelize');
+const { Users } = require('../models/Users');
 const crypto = require('crypto');
 const config = require('../config/config');
 const {secret} = config.jwt
@@ -28,7 +29,7 @@ router.post('/api/singin', async (req, res, next) => {
                     token 
                     });
                 } else {
-                    res.status(200).send({
+                    res.status(401).send({
                     message: 'Incorrect password',
                     result: false
                     });
@@ -87,10 +88,10 @@ router.get('/api/auth', (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
     try {   
-    res.sendFile(process.cwd()+'/public/index/index.html')
+        res.sendFile(process.cwd()+'/public/index/index.html')
     }
     catch(err) {
-    next(new Error(err.message));
+        next(new Error(err.message));
     }
 });
 

@@ -1,21 +1,20 @@
-const Sequelize = require('sequelize');
-
-const sequelize = require('../models/sequelize');
-
-const Followers = sequelize.define('followers', {
-  
+module.exports = (sequelize, DataTypes) => {
+  const Followers = sequelize.define('followers', {
     follower: { 
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true
     },
     following: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true
     },
     id: { 
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       autoIncrement: true
     }
-  }, { timestamps: false });
+  });
 
-module.exports = { Followers };  
+  
+
+  return Followers;
+};

@@ -1,26 +1,31 @@
-const Sequelize = require('sequelize');
-
-const sequelize = require('../models/sequelize');
-
-const Users = sequelize.define('users', {
-  
+module.exports = (sequelize, DataTypes) => {
+  const Users = sequelize.define('users', {
     id: { 
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
     name: {
-      type: Sequelize.TEXT
+      type: DataTypes.TEXT
     },
     avatar: {
-      type: Sequelize.TEXT
+      type: DataTypes.TEXT
     },
     password: {
-      type: Sequelize.TEXT
+      type: DataTypes.TEXT
     },
     email: {
-      type: Sequelize.TEXT
+      type: DataTypes.TEXT
     }
-  }, { timestamps: false });
+  });
 
-module.exports = { Users };  
+  Users.associate = function (models) {
+    Users.belongsTo(models.Posts, {
+      foreignKey: 'id',
+      as: 'message',
+    });
+  };
+  
+
+  return Users;
+};

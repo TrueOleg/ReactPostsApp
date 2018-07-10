@@ -1,19 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('../helpers/auth')
-const { sequelize } = require('../models/sequelize');
-const { Users } = require('../models/Users');
+const models = require('../models/sequelize');
 const crypto = require('crypto');
 const config = require('../config/config');
 const {secret} = config.jwt
 const auth = require('jsonwebtoken');
-
+                    
 
 router.post('/api/singin', async (req, res, next) => {
     try {
         const reqData = req.body;
         const login = reqData.login;
-        Users.findOne({ where: {name: login} })
+        models.Users.findOne({ where: {name: login} })
             .then(users => {
                 return users.dataValues;
             })
@@ -46,7 +45,7 @@ router.post('/api/singup', async (req, res, next) => {
         
         let {regLogin, regEmail, regPass} = req.body;
         regPass = crypto.createHash('md5').update(regPass).digest("hex");
-        Users.findOne({ where: {name: regLogin } })
+        models.Users.findOne({ where: {name: regLogin } })
             .then(user => {
                 if (user) {
                     res.status(200).send({
@@ -56,7 +55,7 @@ router.post('/api/singup', async (req, res, next) => {
                 } else {
                     console.log('regLogin', regLogin)
 
-                    Users
+                    models.Users
                         .build({ name: regLogin, email: regEmail, password: regPass })
                         .save()
                         .then(user => {
@@ -97,28 +96,28 @@ router.get('/', async (req, res, next) => {
 
 router.get('/singin', async (req, res, next) => {
     try {
-    res.sendFile(process.cwd()+'/public/login/login.html')
+        res.sendFile(process.cwd()+'/public/login/login.html')
     }
     catch(err) {
-    next(new Error(err.message));
+        next(new Error(err.message));
     }
 });
 
 router.get('/home', async (req, res, next) => {
     try {
-    res.sendFile(process.cwd()+'/public/home/home.html')
+        res.sendFile(process.cwd()+'/public/home/home.html')
     }
     catch(err) {
-    next(new Error(err.message));
+        next(new Error(err.message));
     }
 })
 
 router.get('/singup', async (req, res, next) => {
     try {
-    res.sendFile(process.cwd()+'/public/registration/registration.html')
+        res.sendFile(process.cwd()+'/public/registration/registration.html')
     }
     catch(err) {
-    next(new Error(err.message));
+        next(new Error(err.message));
     }
 });
 

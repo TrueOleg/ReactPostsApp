@@ -1,13 +1,17 @@
-const Sequelize = require('sequelize');
+const config = require('../config/config');
 
-const sequelize = new Sequelize('student', '1', 'nodejs', {
-  dialect: 'postgres',
-  host: 'localhost',
-  port: 5432,
+const Sequelize = require('sequelize');
+const {name, password, port, user, dialect, host} = config.db;
+
+let sequelize = new Sequelize( name, user, password, {
+  dialect,
+  host,
+  port,
   define: {
     timestamps: false
   }
 });
+
 
 const models = {
   Users: sequelize.import('./Users'),
@@ -20,6 +24,15 @@ Object.keys(models).forEach(modelName => {
     models[modelName].associate(models);
   }
 });
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 models.sequelize = sequelize;
 models.Sequelize = Sequelize;

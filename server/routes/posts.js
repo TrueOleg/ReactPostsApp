@@ -1,10 +1,8 @@
 const express = require('express');
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
-
-const sequelize = require('../models/sequelize');
-const auth = require('../helpers/auth');
 const router = express.Router();
+
+const models = require('../models/sequelize');
+const auth = require('../helpers/auth');
 const verify = auth.verifyToken;
 
 router.post('/', verify, async (req, res, next) => {
@@ -44,13 +42,15 @@ router.get('/friends', verify, async (req, res, next) => {
 router.get('/my', verify, async (req, res, next) => {
     try {        
         const userId = req._userId;
-        const posts = await sequelize.query('SELECT title, content, date FROM posts  WHERE user_id=?', {replacements: [`${userId}`], type: sequelize.QueryTypes.SELECT})
-        req.method="NONE"; 
-        res.status(200).send({
-            message: 'success',
-            result: true,
-            posts
-        });
+        models.Posts.findAll({ attributes: ['title', 'content', 'date'], where: { user_id: userId}, raw: true})
+                        .then(posts => {
+                            res.status(200).send({
+                                message: 'success',
+                                result: true,
+                                posts
+                            });
+                            
+                        })
     } 
     catch(err) {
         next(new Error(err.message));

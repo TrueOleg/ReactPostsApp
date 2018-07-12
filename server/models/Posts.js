@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       Posts.belongsTo(models.Users, {
         foreignKey: 'user_id',
         as: 'message',
+        through: models.Followers
       });
     };
   

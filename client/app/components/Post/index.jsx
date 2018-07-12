@@ -6,12 +6,12 @@ class Post extends React.Component {
     render () {
         
         const { post } = this.props;
-        
+            
         return (
             <ul>
                 <li>{post.title}</li>
                 <li>{post.content}</li>
-                <li>{post.name}</li>
+                <li>{post["message.name"]}</li>
                 <li>{post.date}</li>
             </ul>
         );

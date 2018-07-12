@@ -10,7 +10,7 @@ import * as actions from '../../redux/actions/authAction';
 class SignInPage extends React.Component {  
   constructor(props) {
     super(props);
-    this.state = {credentials: {login: '', password: ''}}
+    this.state = {credentials: {login: '', password: ''}};
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
@@ -28,9 +28,7 @@ class SignInPage extends React.Component {
   }
 
   render() {
-    console.log('login', styles)
     if (this.props.isAuthenticated) {
-      console.log('WTF!!')
       return <Redirect to="/"/>;
     }
     return (
@@ -43,8 +41,7 @@ class SignInPage extends React.Component {
             label = "login"
             value={this.state.credentials.login}
             onChange={this.onChange}
-            />
-          
+          />
           <p>Enter password</p>
           <input
             style={styles.input}
@@ -53,16 +50,14 @@ class SignInPage extends React.Component {
             type  = "password"
             value={this.state.credentials.password}
             onChange={this.onChange}
-            />
-          
+          />
           <input
             style={styles.btnLogin}
             type      = "submit"
             className = "btn btn-primary"
             value     = "Login"
             onClick={this.onSave}
-            />
-          
+          />
           <Link to="/sign-up">Sign-up</Link> 
         </form>   
     );

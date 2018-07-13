@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { sequelize , Users, Followers } = require('../models/sequelize');
+
+const { sequelize } = require('../models/sequelize');
+const models = require('../models/sequelize');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const auth = require('../helpers/auth');
@@ -12,7 +14,14 @@ router.get('/', verify, async (req, res, next) => {
     try {
         const userName = req.query.char;
         const myId = req._userId;
-        Users.findAll({ attributes: ['id', 'name'], where: { name: {[Op.iLike]: `${userName}` + '%'} }})
+        models.Users.findAll({ 
+            attributes: ['id', 'name'], 
+            include: {
+                as: 'boo',    
+                model: models.Followers,
+                attributes: ['id']
+            },   
+            where: { name: {[Op.iLike]: `${userName}` + '%'}}, raw:true})
             .then(users => {
                 console.log('uuuuuuuusers', users)
             })

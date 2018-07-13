@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  Users.associate = function (models) {
+    Users.belongsToMany(models.Followers, {as: 'boo'})
+  };
   
 
   return Users;

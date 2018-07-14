@@ -14,13 +14,13 @@ router.get('/', verify, async (req, res, next) => {
     try {
         const userName = req.query.char;
         const myId = req._userId;
+        models.Followers.findAll({
+            where: {
+                follower: myId
+            } 
+        })
         models.Users.findAll({ 
-            attributes: ['id', 'name'], 
-            include: {
-                as: 'boo',    
-                model: models.Followers,
-                attributes: ['id']
-            },   
+            
             where: { name: {[Op.iLike]: `${userName}` + '%'}}, raw:true})
             .then(users => {
                 console.log('uuuuuuuusers', users)

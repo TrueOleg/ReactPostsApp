@@ -20,15 +20,21 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Users.associate = function (models) {
-    Users.belongsToMany(models.Posts, {
+    models.Users.hasMany(models.Posts, {
       foreignKey: 'id',
-      as: 'message',
-      through: models.Followers
     });
-  };
-
-  Users.associate = function (models) {
-    Users.belongsToMany(models.Followers, {as: 'boo'})
+    models.Users.belongsToMany(models.Users, {
+      as: 'one',
+      through: models.Followers,
+      foreignKey: 'follower',
+      onDelete: 'cascade',
+    });
+    models.Users.belongsToMany(models.Users, {
+      as: 'two',
+      through: models.Followers,
+      foreignKey: 'following',
+      onDelete: 'cascade',
+    });
   };
   
 

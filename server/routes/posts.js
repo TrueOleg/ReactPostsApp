@@ -31,6 +31,7 @@ router.get('/friends', verify, async (req, res, next) => {
         const userId = req._userId;
         models.Followers.findAll({attributes: ['following'], where: {follower: userId}, raw: true})
                                                             .then(res => {
+                                                                console.log('res', res);
                                                                 var following = res.map((item) => {
                                                                     for(var following in item) {
                                                                         return item[following]
@@ -62,8 +63,7 @@ router.get('/friends', verify, async (req, res, next) => {
                 console.log('following', following);
                 models.Posts.findAll({
                                 attributes: ['title', 'content', 'date'],
-                                include: {
-                                    as: 'message',    
+                                include: {   
                                     model: models.Users,
                                     attributes: ['name']
                                 },
@@ -108,15 +108,12 @@ router.get('/friends', verify, async (req, res, next) => {
 router.get('/my', verify, async (req, res, next) => {
     try {        
         const userId = req._userId;
-        models.Posts.findAll({ attributes: ['title', 'content', 'date'], where: { user_id: userId }, raw: true})
-                        .then(posts => {
-                            res.status(200).send({
-                                message: 'success',
-                                result: true,
-                                posts
-                            });
-                            
-                        })
+        const posts = await models.Posts.findAll({ attributes: ['title', 'content', 'date'], where: { user_id: userId }, raw: true})
+        res.status(200).send({
+            message: 'success',
+            result: true,
+            posts
+        });
     } 
     catch(err) {
         next(new Error(err.message));

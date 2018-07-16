@@ -14,16 +14,23 @@ router.get('/', verify, async (req, res, next) => {
     try {
         const userName = req.query.char;
         const myId = req._userId;
-        models.Followers.findAll({
-            where: {
-                follower: myId
-            } 
-        })
+        
         models.Users.findAll({ 
-            
-            where: { name: {[Op.iLike]: `${userName}` + '%'}}, raw:true})
+            attributes: ['id', 'name'],
+            where: { name: {[Op.iLike]: `${userName}` + '%'}}, raw:true, 
+            include: {
+                attributes: ['id'],
+                model: models.Followers,
+                targetKey: { 'follower': myId}, raw:true
+            },
+        })
             .then(users => {
                 console.log('uuuuuuuusers', users)
+                res.status(200).send({
+                message: 'success',
+                result: true,
+                users
+                }); 
             })
         // const users = await sequelize.query(`SELECT users.id, name, followers.id AS followerID
         //                        FROM users LEFT JOIN followers ON follower = :following_id AND following = users.id

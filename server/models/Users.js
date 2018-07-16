@@ -23,18 +23,21 @@ module.exports = (sequelize, DataTypes) => {
     models.Users.hasMany(models.Posts, {
       foreignKey: 'id',
     });
-    models.Users.belongsToMany(models.Users, {
-      as: 'one',
-      through: models.Followers,
-      foreignKey: 'follower',
-      onDelete: 'cascade',
-    });
-    models.Users.belongsToMany(models.Users, {
-      as: 'two',
-      through: models.Followers,
-      foreignKey: 'following',
-      onDelete: 'cascade',
-    });
+    // models.Users.belongsToMany(models.Users, {
+    //   as: 'one',
+    //   through: models.Followers,
+    //   foreignKey: 'follower',
+    //   onDelete: 'cascade',
+    // });
+    // models.Users.belongsToMany(models.Users, {
+    //   as: 'two',
+    //   through: models.Followers,
+    //   foreignKey: 'following',
+    //   onDelete: 'cascade',
+    // });
+    models.Users.hasMany(models.Followers, {
+      foreignKey: 'following'
+    })
   };
   
 

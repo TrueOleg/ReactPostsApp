@@ -11,7 +11,7 @@ class Post extends React.Component {
             <ul>
                 <li>{post.title}</li>
                 <li>{post.content}</li>
-                <li>{post["message.name"]}</li>
+                <li>{post["user.name"]}</li>
                 <li>{post.date}</li>
             </ul>
         );

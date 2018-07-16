@@ -10,7 +10,7 @@ import starTwo from '../../img/star (2).png';
 class User extends React.Component {
 
     click = () => {
-        this.props.user.followerid 
+        this.props.user["followers.id"] 
         ? this.props.unsubscribe(this.props.user.id, this.props.char)
         : this.props.subscribe(this.props.user.id, this.props.char);
     }
@@ -19,7 +19,7 @@ class User extends React.Component {
     
 
     render () {
-        const image = this.props.user.followerid ? starTwo: starOne;
+        const image = this.props.user["followers.id"] ? starTwo: starOne;
         return (
             <p onClick={this.click}>{this.props.user.name}<img onClick={this.click} src={image}/></p>
         );

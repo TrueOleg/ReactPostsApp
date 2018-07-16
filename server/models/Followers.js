@@ -15,19 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Followers.associate = function (models) {
-    // models.Followers.belongsTo(models.Users, {
-    //   as: 'one',
-    //   foreignKey: 'follower',
-    //   targetKey: 'id'
-    // });
-    // models.Followers.belongsTo(models.Users, {
-    //   as: 'two',
-    //   foreignKey: 'following',
-    //   targetKey: 'id'
-    // });
-  };
-
   
+  };
 
   return Followers;
 };

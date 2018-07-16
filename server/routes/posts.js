@@ -67,7 +67,7 @@ router.get('/friends', verify, async (req, res, next) => {
                                     model: models.Users,
                                     attributes: ['name']
                                 },
-                                where: { user_id: {[Op.between]: following}}, raw: true 
+                                where: { user_id: {[Op.in]: following}}, raw: true 
                             })
                             .then(posts => {
                                 console.log('posts', posts)

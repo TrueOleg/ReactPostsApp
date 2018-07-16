@@ -29,7 +29,7 @@ export const searchUsers = (data) => {
         if (data === '') {
             dispatch(clearUsers());
         } else {
-            Api.get(`${Const.URL}/users?char=${data}`)
+            Api.get(`${Const.URL}/users/search?char=${data}`)
                 .then(res => {
                     
                     dispatch(saveUsers(res.data.users, data));

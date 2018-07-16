@@ -12,28 +12,26 @@ router.post('/api/singin', async (req, res, next) => {
     try {
         const reqData = req.body;
         const login = reqData.login;
-        models.Users.findOne({ where: {name: login} })
+        const user = await models.Users.findOne({ where: {name: login} })
             .then(users => {
                 return users.dataValues;
-            })
-            .then(user => {
-                console.log('user', user);
-                const token = crypto.createHash('md5').update(reqData.password).digest("hex") === user.password
-                ? jwt.signToken(user.id)
-                : null;
-                if (token) {
-                    res.status(200).send({
-                    message: 'success',
-                    result: true,
-                    token 
-                    });
-                } else {
-                    res.status(401).send({
-                    message: 'Incorrect password',
-                    result: false
-                    });
-                }  
-            })
+            });       
+        const token = crypto.createHash('md5').update(reqData.password).digest("hex") === user.password
+            ? jwt.signToken(user.id)
+            : null;
+        if (token) {
+            res.status(200).send({
+            message: 'success',
+            result: true,
+            token 
+            });
+        } else {
+            res.status(401).send({
+            message: 'Incorrect password',
+            result: false
+            });
+        }  
+           
     }
     catch (err) {
         next(new Error(err.message));
@@ -42,32 +40,28 @@ router.post('/api/singin', async (req, res, next) => {
 
 router.post('/api/singup', async (req, res, next) => {
     try {
-        
         let {regLogin, regEmail, regPass} = req.body;
         regPass = crypto.createHash('md5').update(regPass).digest("hex");
-        models.Users.findOne({ where: {name: regLogin } })
-            .then(user => {
-                if (user) {
+        const user = await models.Users.findOne({ where: {name: regLogin } });
+        if (user) {
+            res.status(200).send({
+            message: 'This login already exists',
+            result: false   
+            })
+        } else {
+            models.Users
+                .build({ name: regLogin, email: regEmail, password: regPass })
+                .save()
+                .then(user => {
+                    const token = jwt.signToken(user.id);
                     res.status(200).send({
-                    message: 'This login already exists',
-                    result: false   
-                    })
-                } else {
-                    console.log('regLogin', regLogin)
-
-                    models.Users
-                        .build({ name: regLogin, email: regEmail, password: regPass })
-                        .save()
-                        .then(user => {
-                            const token = jwt.signToken(user.id);
-                            res.status(200).send({
-                            message: 'success',
-                            result: true,
-                            token
-                            });
-                        })
-                }    
-            }) 
+                    message: 'success',
+                    result: true,
+                    token
+                    });
+                })
+        }    
+           
     }
     catch(err) {
         next(new Error(err.message));
@@ -82,7 +76,7 @@ router.get('/api/auth', (req, res, next) => {
                  result: true,        
         }); 
       }); 
-})
+});
 
 
 router.get('/', async (req, res, next) => {
@@ -119,12 +113,6 @@ router.get('/singup', async (req, res, next) => {
     catch(err) {
         next(new Error(err.message));
     }
-});
-
-
-
-
-
-    
+}); 
 
 module.exports = router;

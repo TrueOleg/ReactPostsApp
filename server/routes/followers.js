@@ -14,7 +14,7 @@ router.post('/', verify, async (req, res, next) => {
         res.status(200).send({
             message: 'success',
             result: true,
-        })                                         
+        });                                         
     }
     catch(err) {
         next(new Error(err.message));
@@ -29,7 +29,7 @@ router.delete('/', verify, async (req, res, next) => {
         await res.status(200).send({
               message: 'delete',
               result: true,
-        })
+        });
     }
     catch(err) {
         next(new Error(err.message));

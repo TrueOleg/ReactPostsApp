@@ -14,9 +14,41 @@ router.get('/search', verify, async (req, res, next) => {
     try {
         const userName = req.query.char;
         const myId = req._userId;
-        
-        const usersFollowing = await models.Users.findAll({ 
-            attributes: ['id', 'name'],
+
+        // let arr = await models.Users.findAll({ 
+        //     attributes: ['id', 'name'],
+        //     where: {
+        //         [Op.and]: {
+        //             name: {
+        //                 [Op.iLike]: `${userName}` + '%',
+    
+        //             },
+        //             id: {
+        //                 [Op.not]: myId
+        //             }
+        //         },
+        //     },
+        //     raw: true 
+        // });  
+        // console.log('arr', arr);
+        // let followers = await arr.map((item) => {
+        //     for(var id in item) {
+        //         return item[id]
+        //     }
+        // });
+        // console.log('followers', followers);
+        // let followings = await models.Followers.findAll({ 
+        //     attributes: ['id'],
+        //     where: {
+        //         'follower': myId,
+        //         'following': followers
+        //     },
+        //     raw: true 
+        // });  
+        // console.log('followings', followings);
+
+        const users = await models.Users.findAll({ 
+            
             where: {
                 [Op.and]: {
                     name: {
@@ -31,48 +63,42 @@ router.get('/search', verify, async (req, res, next) => {
             raw: true, 
             include: {
                 attributes: ['id'],
-                model: models.Followers,
-                where: {
-                    [Op.and]: {
-                        'following': 'users.id',
-                    }
-                },
-                targetKey: {
-                    'follower': myId,
-                },
-                // raw: true   
+                as: 'Following',
+                model: models.Users,
+                raw: true   
             }    
 
         });   
 
-        console.log('usersFollowing', usersFollowing);
-        const usersFollowers = await models.Users.findAll({ 
-            attributes: ['id', 'name'],
-            where: {
-                [Op.and]: {
-                    name: {
-                        [Op.iLike]: `${userName}` + '%',
+        console.log('users', users);
+        // const usersFollowers = await models.Users.findAll({ 
+        //     attributes: ['id', 'name'],
+        //     where: {
+        //         [Op.and]: {
+        //             name: {
+        //                 [Op.iLike]: `${userName}` + '%',
     
-                    },
-                    id: {
-                        [Op.not]: myId
-                    }
-                },
-            },
-            raw: true, 
-            include: {
+        //             },
+        //             id: {
+        //                 [Op.not]: myId
+        //             }
+        //         },
+        //     },
+        //     raw: true, 
+        //     include: {
 
-                attributes: ['id'],
-                model: models.Followers,
-                where: {
-                        'follower': myId,
-                },
-                targetKey: {
-                    'following': 'users.id',
-                },
-                raw: true   
-            }    
-        
+        //         attributes: ['id'],
+        //         model: models.Followers,
+        //         where: {
+        //                 'follower': myId,
+        //         },
+        //         targetKey: {
+        //             'following': 'users.id',
+        //         },
+        //         raw: true   
+        //     }    
+        // });
+        // console.log('usersFollowers', usersFollowers);
             // include: {
             //     attributes: ['id'],
             //     model: models.Followers,
@@ -95,9 +121,9 @@ router.get('/search', verify, async (req, res, next) => {
             //     raw: true   
             // },
 
-        });  
+        // });  
 
-        const users = usersFollowers.concat(usersFollowing);
+        // const users = usersFollowers.concat(usersFollowing);
 
         res.status(200).send({
         message: 'success',

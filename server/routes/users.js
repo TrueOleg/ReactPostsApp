@@ -7,6 +7,9 @@ const auth = require('../helpers/auth');
 
 const verify = auth.verifyToken;
 const Op =sequelize.Op;
+const fn = sequelize.fn;
+const col = sequelize.col;
+const where = sequelize.where;
 // select users.id, name, followers.id from users left join followers on users.id = follower
 // and following = 1 or following = users.id and follower = 1 
 // where users.name ilike '%s%' and not users.id=1
@@ -14,7 +17,8 @@ router.get('/search', verify, async (req, res, next) => {
     try {
         const userName = req.query.char;
         const myId = req._userId;
-
+        
+        
         // let arr = await models.Users.findAll({ 
         //     attributes: ['id', 'name'],
         //     where: {
@@ -47,31 +51,82 @@ router.get('/search', verify, async (req, res, next) => {
         // });  
         // console.log('followings', followings);
 
-        const users = await models.Users.findAll({ 
+        // const users = await models.Users.findAll({ 
             
-            where: {
-                [Op.and]: {
-                    name: {
-                        [Op.iLike]: `${userName}` + '%',
+        //     where: {
+        //         [Op.and]: {
+        //             name: {
+        //                 [Op.iLike]: `${userName}` + '%',
     
-                    },
-                    id: {
-                        [Op.not]: myId
-                    }
-                },
-            },
-            raw: true, 
-            include: {
-                attributes: ['id'],
-                as: 'Following',
-                model: models.Users,
-                raw: true   
-            }    
+        //             },
+        //             id: {
+        //                 [Op.not]: myId
+        //             },
+                    
+        //         },
+        //     },
+        //     raw: true, 
+        //     include: [{
+                
+        //         as: 'Following',
+        //         model: models.Users,
+                
+        //         raw: true,
+                   
+        //     },
+        //     {
+        //         as: 'Following',
+        //         model: models.Users,
+                
+        //         raw: true,
+        //     }]
+            
 
-        });   
+        // });   
 
-        console.log('users', users);
+        // console.log('users', users);
         // const usersFollowers = await models.Users.findAll({ 
+            
+        //     where: {
+        //         [Op.and]: {
+        //             name: {
+        //                 [Op.iLike]: `${userName}` + '%',
+    
+        //             },
+        //             id: {
+        //                 [Op.not]: myId
+        //             }
+        //         },
+        //     },
+        //     raw: true, 
+            
+                
+
+        // }); 
+        // console.log('usersFollowers', usersFollowers);
+
+        // var id = await usersFollowers.map((item) => {
+        //     for(var id in item) {
+        //         return item[id]
+        //     }
+        // });
+
+        // const users = await models.Followers.findAll({ 
+        //     attributes: ['id'],
+        //     where: {
+        //         [Op.and]: {
+        //             follower:  myId,
+        //             following: id
+                    
+        //         },
+        //     },
+        //     raw: true, 
+            
+                
+
+        // });
+        
+        // const users  = await models.Users.findAll({ 
         //     attributes: ['id', 'name'],
         //     where: {
         //         [Op.and]: {
@@ -86,44 +141,46 @@ router.get('/search', verify, async (req, res, next) => {
         //     },
         //     raw: true, 
         //     include: {
-
-        //         attributes: ['id'],
-        //         model: models.Followers,
-        //         where: {
-        //                 'follower': myId,
-        //         },
-        //         targetKey: {
-        //             'following': 'users.id',
-        //         },
+        //         as: 'Following',
+        //         model: models.Users,
+        //         // where:  where(col('follower'), myId),
+                
         //         raw: true   
         //     }    
         // });
-        // console.log('usersFollowers', usersFollowers);
-            // include: {
-            //     attributes: ['id'],
-            //     model: models.Followers,
-            //     where: {
-            //             'following': 'users.id',
-            //     },
-            //     // where: {
-            //             // 'follower': myId,
-            //         // [Op.or]: [
-            //         //     {[Op.and] : [{'follower': 'users.id'}, {'following': myId}]},
-            //         // ]
-            //         // [Op.or]: [
-            //         //     {[Op.and] : [{'follower': 'users.id'}, {'following': myId}]},
-            //         //     {[Op.and] : [{'following': 'users.id'}, {'follower': myId}]},
-            //         // ]
-            //     // },
-            //     targetKey: {
-            //         'follower': myId,
-            //     },
-            //     raw: true   
-            // },
+        // console.log('users ', users );
+        const users  = await models.Users.findAll({ 
+            attributes: ['id', 'name'],
+            where: {
+                [Op.and]: {
+                    name: {
+                        [Op.iLike]: `${userName}` + '%',
+    
+                    },
+                    id: {
+                        [Op.not]: myId
+                    }
+                },
+            },
+            raw: true, 
+            include: [{
+                as: 'Following',
+                model: models.Users,
+                where: {
+                    [Op.or]: [
+                            where(col('follower'), myId),
+                            
+                            ]
+                } ,
+                
+                raw: true   
+            },
+            {as: 'Follower',
+            model: models.Users,}]  
+        });
+        console.log('users', users );   
 
-        // });  
-
-        // const users = usersFollowers.concat(usersFollowing);
+        
 
         res.status(200).send({
         message: 'success',
